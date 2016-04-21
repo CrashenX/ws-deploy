@@ -14,7 +14,7 @@ Vagrant.configure(2) do |config|
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "debian/jessie64"
   config.vm.box_download_checksum = \
-      "ee9cd1a4bc5fc2f2944a07e8571c6a46b74e0b47da2449912d537a8257ceba9e"
+      "42bb03b7dcfe2fe61c37ae9e679eff5a57f77fe96c5afbb050b3d0e012acfbc0"
   config.vm.box_download_checksum_type = "sha256"
 
 
