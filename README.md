@@ -6,8 +6,8 @@ Vagrant + Ansible to configure Debian
 
 ### Create your vault
 
-Create a `host_vars/default/vault` with your config / secrets from
-`host_vars/default/vault.template` by replacing the bits in `<>`.
+Create a `host_vars/default/vault` from `host_vars/default/template.vault`
+by replacing the bits in `<>` with your config values / secrets.
 
 #### Encrypt your secrets
 
