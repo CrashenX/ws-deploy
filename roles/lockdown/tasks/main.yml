@@ -1,3 +1,10 @@
+- name: Assembles known_hosts from fragments
+  assemble: src=/home/{{ user }}/.ssh/fragments/
+            dest=/home/{{ user }}/.ssh/known_hosts
+            owner={{ user }}
+            group={{ user }}
+            mode=0640
+
 - name: Disables vagrant user
   command: usermod -L -e 1970-01-01 vagrant
 

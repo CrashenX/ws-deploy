@@ -2,7 +2,9 @@
   become: yes
   become_user: root
   roles:
+    - { role: cli }
     - { role: gui }
+    - { role: openstack }
 
 - hosts: all
   vars:

@@ -12,9 +12,16 @@
     - screen
     - vim-gtk
 
-- name: Adds github to known_hosts
+- name: Ensures fragments directory exists
+  file: path=/home/{{ user }}/.ssh/fragments/
+        state=directory
+        owner={{ user }}
+        group={{ user }}
+        mode=750
+
+- name: Adds github pubkey to fragments
   copy: src=github_rsa.pub
-        dest=/home/{{ user }}/.ssh/known_hosts
+        dest=/home/{{ user }}/.ssh/fragments/known_hosts.github
         owner={{ user }}
         group={{ user }}
         mode=0640

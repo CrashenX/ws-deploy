@@ -1,0 +1,99 @@
+- name: Update to apt cache
+  apt: update_cache=yes cache_valid_time=3600
+
+- name: Installs necessary packages
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - libpq-dev
+    - libjpeg-dev
+    - libssl-dev
+    - libxml2-dev
+    - libxslt1-dev
+    - python-dev
+    - python-pip
+    - python-virtualenv
+    - virtualenvwrapper
+
+- name: Ensures fragments directory exists
+  file: path=/home/{{ user }}/.ssh/fragments/
+        state=directory
+        owner={{ user }}
+        group={{ user }}
+        mode=750
+
+- name: Copies openstack review pubkey to fragments
+  copy: src=openstack_rsa.pub
+        dest=/home/{{ user }}/.ssh/fragments/known_hosts.openstack
+        owner={{ user }}
+        group={{ user }}
+        mode=0640
+
+- name: Clones OpenStack repositories
+  git: repo=https://github.com/openstack/{{ item }}
+       dest=/home/{{ user }}/src/rax/openstack/{{ item }}
+  become: yes
+  become_user: "{{ user }}"
+  with_items:
+    - glance
+    - ironic
+    - nova
+    - glance-specs
+    - ironic-specs
+    - nova-specs
+    - python-openstackclient
+    - ironic-python-agent
+    - openstack-ansible
+
+- name: Ensures OpenStack virtualenv directory exists
+  file: path=/home/{{ user }}/.virtualenvs/openstack
+        state=directory
+        owner={{ user }}
+        group={{ user }}
+        mode=750
+
+- name: Installs OpenStack dependencies
+  pip: name={{ item }} virtualenv=/home/{{ user }}/.virtualenvs/openstack
+  become: yes
+  become_user: "{{ user }}"
+  with_items:
+    - git-review
+    - tox
+
+- name: Installs OpenStack requirements
+  pip: requirements=/home/{{ user }}/src/rax/openstack/{{ item }}/requirements.txt
+       virtualenv=/home/{{ user }}/.virtualenvs/openstack
+  become: yes
+  become_user: "{{ user }}"
+  with_items:
+    - glance
+    - ironic
+    - nova
+    - glance-specs
+    - ironic-specs
+    - nova-specs
+    - python-openstackclient
+    - ironic-python-agent
+    - openstack-ansible
+
+- name: Installs OpenStack test requirements
+  pip: requirements=/home/{{ user }}/src/rax/openstack/{{ item }}/test-requirements.txt
+       virtualenv=/home/{{ user }}/.virtualenvs/openstack
+  become: yes
+  become_user: "{{ user }}"
+  with_items:
+    - glance
+    - ironic
+    - nova
+    - ironic-specs
+    - nova-specs
+    - python-openstackclient
+    - ironic-python-agent
+    - openstack-ansible
+
+- name: Sets git review global username
+  command: git config --global --add gitreview.username "{{ openstack_user }}"
+  become: yes
+  become_user: "{{ user }}"
+
+- name: Restricts access to unprivileged user files
+  file: path=/home/{{ user }} state=directory recurse=yes mode="o-rwx"
