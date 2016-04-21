@@ -1,0 +1,18 @@
+vault_user: <your_login_username>
+vault_password: <output_from:hash_pass.py>
+vault_real_name: <your_fullname>
+vault_email: <your_email>
+vault_openstack_user: <your_openstack_review_username>
+vault_gpg_private_key: |
+  -----BEGIN PGP PRIVATE KEY BLOCK-----
+  <your_private_key>
+  -----END PGP PRIVATE KEY BLOCK-----
+vault_gpg_public_key: |
+  -----BEGIN PGP PUBLIC KEY BLOCK-----
+  <your_public_key>
+  -----END PGP PUBLIC KEY BLOCK-----
+vault_ssh_private_key: |
+  -----BEGIN RSA PRIVATE KEY-----
+  <your_private_key>
+  -----END RSA PRIVATE KEY-----
+vault_ssh_public_key: <your_public_key>
