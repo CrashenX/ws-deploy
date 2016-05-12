@@ -6,6 +6,7 @@
   with_items:
     - libpq-dev
     - libjpeg-dev
+    - libmysqlclient-dev
     - libssl-dev
     - libxml2-dev
     - libxslt1-dev
