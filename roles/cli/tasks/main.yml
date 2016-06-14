@@ -46,6 +46,11 @@
   become: yes
   become_user: "{{ user }}"
 
+- name: Sets git diff heuristic
+  command: git config --global diff.compactionHeuristic true
+  become: yes
+  become_user: "{{ user }}"
+
 - name: Deploys bashrc additions
   get_url: url=https://raw.githubusercontent.com/CrashenX/bashrc/master/bashrc
            dest={{ item.basedir }}/.bashrc_{{ item.user }}
