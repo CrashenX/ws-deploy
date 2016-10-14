@@ -112,7 +112,7 @@
   become_user: "{{ user }}"
 
 - name: Imports gpg keys
-  command: gpg --import /home/{{ user }}/{{ item }}
+  command: gpg --batch --import /home/{{ user }}/{{ item }}
   with_items:
     - my-public-key.asc
     - my-private-key.asc
