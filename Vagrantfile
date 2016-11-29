@@ -13,10 +13,6 @@ Vagrant.configure(2) do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "debian/jessie64"
-  config.vm.box_download_checksum = \
-      "42bb03b7dcfe2fe61c37ae9e679eff5a57f77fe96c5afbb050b3d0e012acfbc0"
-  config.vm.box_download_checksum_type = "sha256"
-
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
