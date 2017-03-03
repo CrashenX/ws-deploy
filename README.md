@@ -39,3 +39,11 @@ Follow steps in rax/roles/README.md
 ### Build your VM
 
     vagrant up
+
+### GUI
+
+* Shutdown the VM.
+* Retinal displays: enable HiDPI support in VirtualBox display options.
+* Boot the VM to launch the login manager.
+* Maximize; then login for fullscreen hi-res UI.
+
