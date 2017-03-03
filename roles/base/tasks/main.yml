@@ -34,11 +34,6 @@
         group=root
         mode=0644
 
-- name: Remove broken packages
-  apt: pkg={{ item }} state=absent
-  with_items:
-    - rpcbind
-
 - name: Updates to Sid
   apt: update_cache=yes upgrade=dist
 
