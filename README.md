@@ -4,12 +4,20 @@ Vagrant + Ansible to configure Debian
 
 ## Usage
 
-### Requirements
+### Requirements and setup
 
 1. Virtualbox: https://www.virtualbox.org/wiki/Downloads
+   * Debian: `sudo apt-get install virtualbox`
+   * OS X: `brew cask install virtualbox`
 1. Vagrant: https://www.vagrantup.com/downloads.html
+   * Debian: `sudo apt-get install vagrant`
+   * OS X: `brew cask install vagrant`
 1. Vagrant vbquest plugin: `vagrant plugin install vagrant-vbguest`
+1. Ansible: http://docs.ansible.com/ansible/intro\_installation.html
+   * Debian: `sudo apt-get install ansible`
+   * OS X: `brew install ansible`
 1. Python requirements: `pip install -r requirements.txt`
+1. Create VM share directory: `mkdir -p ~/Documents/dev-vm-share`
 
 ### Create your vault
 
