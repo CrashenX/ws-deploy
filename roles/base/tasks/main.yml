@@ -33,9 +33,11 @@
         owner=root
         group=root
         mode=0644
+  when: upgrade_to_sid
 
 - name: Updates to Sid
   apt: update_cache=yes upgrade=dist
+  when: upgrade_to_sid
 
 - name: Installs packages
   apt: pkg={{ item }} state=latest
@@ -45,7 +47,6 @@
     - netfilter-persistent
     - unattended-upgrades
     - vim
-    - virtualbox-guest-*
 
 - name: Ensures iptables directory exists
   file: path=/etc/iptables/

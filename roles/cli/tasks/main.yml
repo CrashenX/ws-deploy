@@ -1,9 +1,9 @@
 - name: Installs necessary packages
   apt: pkg={{ item }} state=latest update_cache=yes cache_valid_time=3600
   with_items:
-    - flake8
     - git
     - python-dev
+    - python-flake8
     - python-jedi
     - python3-jedi
     - python-virtualenv
