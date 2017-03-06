@@ -4,6 +4,7 @@
 - name: Installs necessary packages
   apt: pkg={{ item }} state=latest
   with_items:
+    - git
     - libpq-dev
     - libjpeg-dev
     - libmysqlclient-dev
@@ -60,15 +61,18 @@
         mode=750
 
 - name: Installs OpenStack dependencies
-  pip: name={{ item }} virtualenv=/home/{{ user }}/.virtualenvs/openstack
+  pip: name={{ item }} state=latest
+       virtualenv=/home/{{ user }}/.virtualenvs/openstack
   become: yes
   become_user: "{{ user }}"
   with_items:
+    - pip
     - git-review
     - tox
 
 - name: Installs OpenStack requirements
-  pip: requirements=/home/{{ user }}/src/rax/openstack/{{ item }}/requirements.txt
+  pip: state=latest
+       requirements=/home/{{ user }}/src/rax/openstack/{{ item }}/requirements.txt
        virtualenv=/home/{{ user }}/.virtualenvs/openstack
   become: yes
   become_user: "{{ user }}"
@@ -84,7 +88,8 @@
     - openstack-ansible
 
 - name: Installs OpenStack test requirements
-  pip: requirements=/home/{{ user }}/src/rax/openstack/{{ item }}/test-requirements.txt
+  pip: state=latest
+       requirements=/home/{{ user }}/src/rax/openstack/{{ item }}/test-requirements.txt
        virtualenv=/home/{{ user }}/.virtualenvs/openstack
   become: yes
   become_user: "{{ user }}"
