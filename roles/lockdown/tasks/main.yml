@@ -4,6 +4,8 @@
 - name: Allows only user login via ssh
   lineinfile: dest=/etc/ssh/sshd_config
               regexp="^AllowUsers"
-              line="AllowUsers jesse"
+              line="AllowUsers {{ user }}"
               state=present
-  notify: Restart ssh
+
+- name: Reboots in 60 seconds
+  command: shutdown -r

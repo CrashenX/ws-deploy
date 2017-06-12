@@ -22,7 +22,6 @@
               regexp="^PasswordAuthentication"
               line="PasswordAuthentication no"
               state=present
-  notify: Restart ssh
 
 - name: Updates current dist
   apt: update_cache=yes upgrade=dist
@@ -44,7 +43,7 @@
   with_items:
     - fail2ban
     - gnupg
-    - netfilter-persistent
+    - iptables-persistent
     - unattended-upgrades
     - vim
 
@@ -64,8 +63,6 @@
   with_items:
     - rules.v4
     - rules.v6
-
-- service: name=netfilter-persistent state=restarted
 
 - name: Copies ssh public key
   copy: content="{{ ssh_public_key }}"

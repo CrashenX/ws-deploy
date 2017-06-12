@@ -6,6 +6,8 @@
 -A INPUT -m conntrack --ctstate ESTABLISHED -j ACCEPT
 -A INPUT -m conntrack --ctstate NEW -i lo -j ACCEPT
 -A INPUT -m conntrack --ctstate NEW -p tcp -m tcp --dport 22 -s 10.0.0.0/8 -j ACCEPT
+-A INPUT -m conntrack --ctstate NEW,ESTABLISHED -m limit --limit 2/s -p icmp -m icmp --icmp-type echo-request -j ACCEPT
+-A INPUT -m conntrack --ctstate ESTABLISHED -m limit --limit 2/s -p icmp -m icmp --icmp-type echo-reply -j ACCEPT
 -A OUTPUT -m conntrack --ctstate ESTABLISHED -j ACCEPT
 -A OUTPUT -m conntrack --ctstate NEW -o lo -j ACCEPT
 -A OUTPUT -m conntrack --ctstate NEW -p tcp -m tcp --dport 22 -j ACCEPT
@@ -14,7 +16,8 @@
 -A OUTPUT -m conntrack --ctstate NEW -p tcp -m tcp --dport 80 -j ACCEPT
 -A OUTPUT -m conntrack --ctstate NEW -p udp -m udp --dport 123 -j ACCEPT
 -A OUTPUT -m conntrack --ctstate NEW -p tcp -m tcp --dport 443 -j ACCEPT
--A OUTPUT -m conntrack --ctstate NEW -p tcp -m tcp --dport 6697 -j ACCEPT
+-A OUTPUT -m conntrack --ctstate NEW,ESTABLISHED -m limit --limit 2/s -p icmp -m icmp --icmp-type echo-request -j ACCEPT
+-A OUTPUT -m conntrack --ctstate ESTABLISHED -m limit --limit 2/s -p icmp -m icmp --icmp-type echo-reply -j ACCEPT
 -A OUTPUT -j LOGGING
 -A LOGGING -m limit --limit 2/min -j LOG --log-prefix "IPTables-Dropped: " --log-level 4
 -A LOGGING -j DROP
