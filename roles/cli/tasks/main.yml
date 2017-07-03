@@ -1,6 +1,7 @@
 - name: Installs necessary packages
   apt: pkg={{ item }} state=latest update_cache=yes cache_valid_time=3600
   with_items:
+    - ansible
     - git
     - python-dev
     - python-flake8
@@ -84,18 +85,16 @@
     - { user: 'root', basedir: '/root' }
     - { user: "{{ user }}", basedir: "/home/{{ user }}" }
 
-- name: Clones ws-deploy repository
-  git: repo=https://github.com/CrashenX/ws-deploy.git
-       dest=/home/{{ user }}/src/ws-deploy/
+- name: Clones git repositories
+  git: repo=https://github.com/CrashenX/{{ item }}.git
+       dest=/home/{{ user }}/src/{{ item }}/
        recursive=no
   become: yes
   become_user: "{{ user }}"
-
-- name: Clones vimrc repository
-  git: repo=https://github.com/CrashenX/vimrc.git
-       dest=/home/{{ user }}/src/vimrc/
-  become: yes
-  become_user: "{{ user }}"
+  with_items:
+      - ws-deploy
+      - server-deploy
+      - vimrc
 
 - name: Installs vim config
   command: /home/{{ user }}/src/vimrc/install
